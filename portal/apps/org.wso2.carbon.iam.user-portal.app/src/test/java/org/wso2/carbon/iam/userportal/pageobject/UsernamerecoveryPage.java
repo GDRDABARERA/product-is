@@ -26,8 +26,18 @@ public class UsernamerecoveryPage {
 
     private static WebElement element = null;
 
-    public static WebElement txtbx_UserName(WebDriver driver) {
-        element = driver.findElement(By.id("username"));
+    public static WebElement btn_BackSignIn(WebDriver driver) {
+        element = driver.findElement(By.id("back-sign-in"));
+        return element;
+    }
+
+    public static WebElement btn_Recover(WebDriver driver) {
+        element = driver.findElement(By.id("recover"));
+        return element;
+    }
+
+    public static WebElement txtbx_FirstName(WebDriver driver, String label) {
+        element = driver.findElement(By.id(label));
         return element;
     }
 }
