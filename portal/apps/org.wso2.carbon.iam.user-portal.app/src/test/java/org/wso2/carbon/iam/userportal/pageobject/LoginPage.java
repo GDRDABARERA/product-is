@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package page.objects;
+package org.wso2.carbon.iam.userportal.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,6 +52,11 @@ public class LoginPage {
 
     public static WebElement span_SignInError(WebDriver driver) {
         element = driver.findElement(By.id("sign-in-error"));
+        return element;
+    }
+
+    public static WebElement lnk_ForgotUsername(WebDriver driver) {
+        element = driver.findElement(By.id("recover-username"));
         return element;
     }
 }

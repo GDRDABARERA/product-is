@@ -266,7 +266,7 @@ var sh = {
             result = []
             ;
 
-        // support for <SCRIPT TYPE="syntaxhighlighter" /> feature
+        // support for <SCRIPT TYPE="syntaxhighlighter" /> pageobject
         if (conf.useScriptTags)
             elements = elements.concat(getSyntaxHighlighterScriptTags());
 

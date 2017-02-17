@@ -66,7 +66,7 @@ var DataTable = $.fn.dataTable;
  * which expands on to multiple lines will cause some odd behaviour in the scrolling.
  *
  * Scroller is initialised by simply including the letter 'S' in the sDom for the
- * table you want to have this feature enabled on. Note that the 'S' must come
+ * table you want to have this pageobject enabled on. Note that the 'S' must come
  * AFTER the 't' parameter in `dom`.
  *
  * Key features include:

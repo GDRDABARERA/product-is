@@ -1833,7 +1833,7 @@
 	
 	
 	/**
-	 * Browser feature detection for capabilities, quirks
+	 * Browser pageobject detection for capabilities, quirks
 	 *  @param {object} settings dataTables settings object
 	 *  @memberof DataTable#oApi
 	 */
@@ -1846,7 +1846,7 @@
 			var browser = {};
 			DataTable.__browser = browser;
 	
-			// Scrolling feature / quirks detection
+			// Scrolling pageobject / quirks detection
 			var n = $('<div/>')
 				.css( {
 					position: 'fixed',
@@ -4776,7 +4776,7 @@
 	/**
 	 * Generate the node required for user display length changing
 	 *  @param {object} settings dataTables settings object
-	 *  @returns {node} Display length feature node
+	 *  @returns {node} Display length pageobject node
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFeatureHtmlLength ( settings )
@@ -4837,7 +4837,7 @@
 	/**
 	 * Generate the node required for default pagination
 	 *  @param {object} oSettings dataTables settings object
-	 *  @returns {node} Pagination feature node
+	 *  @returns {node} Pagination pageobject node
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFeatureHtmlPaginate ( settings )
@@ -10521,7 +10521,7 @@
 		/**
 		 * Enable or disable the addition of the classes `sorting\_1`, `sorting\_2` and
 		 * `sorting\_3` to the columns which are currently being sorted on. This is
-		 * presented as a feature switch as it can increase processing time (while
+		 * presented as a pageobject switch as it can increase processing time (while
 		 * classes are removed and added) so for large data sets you might want to
 		 * turn this off.
 		 *  @type boolean
@@ -11109,7 +11109,7 @@
 	
 		/**
 		 * Number of rows to display on a single page when using pagination. If
-		 * feature enabled (`lengthChange`) then the end user will be able to override
+		 * pageobject enabled (`lengthChange`) then the end user will be able to override
 		 * this to a custom setting using a pop-up menu.
 		 *  @type int
 		 *  @default 10
@@ -13840,15 +13840,15 @@
 		/**
 		 * Feature plug-ins.
 		 * 
-		 * This is an array of objects which describe the feature plug-ins that are
-		 * available to DataTables. These feature plug-ins are then available for
+		 * This is an array of objects which describe the pageobject plug-ins that are
+		 * available to DataTables. These pageobject plug-ins are then available for
 		 * use through the `dom` initialisation option.
 		 * 
-		 * Each feature plug-in is described by an object which must have the
+		 * Each pageobject plug-in is described by an object which must have the
 		 * following properties:
 		 * 
 		 * * `fnInit` - function that is used to initialise the plug-in,
-		 * * `cFeature` - a character so the feature can be enabled by the `dom`
+		 * * `cFeature` - a character so the pageobject can be enabled by the `dom`
 		 *   instillation option. This is case sensitive.
 		 *
 		 * The `fnInit` function has the following input parameters:
@@ -13858,7 +13858,7 @@
 		 *
 		 * And the following return is expected:
 		 * 
-		 * * {node|null} The element which contains your feature. Note that the
+		 * * {node|null} The element which contains your pageobject. Note that the
 		 *   return may also be void if your plug-in does not require to inject any
 		 *   DOM elements into DataTables control (`dom`) - for example this might
 		 *   be useful when developing a plug-in which allows table control via

@@ -152,7 +152,7 @@ features, with an overview of how they are implemented:
   columns array, with each element of it representing a cell.
 
 This method of using boolean flags allows Select to operate when nodes have not
-been created for rows / cells (DataTables' defer rendering feature).
+been created for rows / cells (DataTables' defer rendering pageobject).
 
 ## API methods
 

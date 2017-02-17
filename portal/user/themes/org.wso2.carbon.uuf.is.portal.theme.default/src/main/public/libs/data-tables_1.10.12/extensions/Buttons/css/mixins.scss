@@ -21,7 +21,7 @@
 
 
 @mixin dtb-fixed-collection {
-	// Fixed positioning feature
+	// Fixed positioning pageobject
 	&.fixed {
 		position: fixed;
 		top: 50%;
@@ -42,7 +42,7 @@
 		}
 	}
 
-	// Multi-column layout feature
+	// Multi-column layout pageobject
 	-webkit-column-gap: 8px;
 	   -moz-column-gap: 8px;
 	    -ms-column-gap: 8px;

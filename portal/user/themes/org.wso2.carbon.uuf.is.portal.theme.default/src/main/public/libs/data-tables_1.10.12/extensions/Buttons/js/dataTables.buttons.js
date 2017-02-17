@@ -1618,7 +1618,7 @@ $(document).on( 'init.dt plugin-init.dt', function (e, settings) {
 	}
 } );
 
-// DataTables `dom` feature option
+// DataTables `dom` pageobject option
 DataTable.ext.feature.push( {
 	fnInit: function( settings ) {
 		var api = new DataTable.Api( settings );

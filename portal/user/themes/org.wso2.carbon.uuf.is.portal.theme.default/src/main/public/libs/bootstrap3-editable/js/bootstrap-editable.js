@@ -1926,7 +1926,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         },
         
         /**
-        Removes editable feature from element
+        Removes editable pageobject from element
         @method destroy()
         **/        
         destroy: function() {
@@ -3607,7 +3607,7 @@ To make it **bootstrap-styled** you can use css from [here](https://github.com/t
 
     <link href="select2-bootstrap.css" rel="stylesheet" type="text/css"></link>    
     
-**Note:** currently `autotext` feature does not work for select2 with `ajax` remote source.    
+**Note:** currently `autotext` pageobject does not work for select2 with `ajax` remote source.
 You need initially put both `data-value` and element's text youself:    
 
     <a href="#" data-type="select2" data-value="1">Text1</a>

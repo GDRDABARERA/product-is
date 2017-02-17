@@ -51,7 +51,7 @@ var DataTable = $.fn.dataTable;
 var _firefoxScroll;
 
 /**
- * When making use of DataTables' x-axis scrolling feature, you may wish to
+ * When making use of DataTables' x-axis scrolling pageobject, you may wish to
  * fix the left most column in place. This plug-in for DataTables provides
  * exactly this option (note for non-scrolling tables, please use the
  * FixedHeader plug-in, which can fix headers, footers and columns). Key

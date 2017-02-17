@@ -238,7 +238,7 @@ table.dataTable td {
 }
 
 /*
- * Control feature layout
+ * Control pageobject layout
  */
 .dataTables_wrapper {
   position: relative;
@@ -438,7 +438,7 @@ table.dataTable tfoot th.ui-state-default:first-child {
 }
 
 /*
- * Control feature layout
+ * Control pageobject layout
  */
 .dataTables_wrapper .dataTables_paginate .fg-button {
   box-sizing: border-box;
