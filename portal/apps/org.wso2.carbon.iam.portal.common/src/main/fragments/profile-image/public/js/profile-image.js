@@ -23,8 +23,7 @@ $(window).load(function () {
     $('#image').change(function(){
         $('#image-uploader').submit();
     });
-
-
+    
     $.validator.addMethod(
         "regex",
         function(value, element, regexp) {
