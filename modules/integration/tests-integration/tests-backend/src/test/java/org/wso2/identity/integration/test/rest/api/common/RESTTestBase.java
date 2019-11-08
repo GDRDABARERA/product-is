@@ -16,8 +16,9 @@
 
 package org.wso2.identity.integration.test.rest.api.common;
 
-import com.atlassian.oai.validator.SwaggerRequestResponseValidator;
-import com.atlassian.oai.validator.restassured.SwaggerValidationFilter;
+import com.atlassian.oai.validator.OpenApiInteractionValidator;
+import com.atlassian.oai.validator.report.LevelResolverFactory;
+import com.atlassian.oai.validator.restassured.OpenApiValidationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.restassured.RestAssured;
@@ -73,7 +74,7 @@ public class RESTTestBase extends ISIntegrationTest {
     private static final String JAR_EXTENSION = ".jar";
     private static final String SERVICES = "/services";
 
-    static final String BUNDLE = "RESTAPIErrors";
+    private static final String BUNDLE = "RESTAPIErrors";
     private static ResourceBundle errorProperties = ResourceBundle.getBundle(BUNDLE);
 
     protected String authenticatingUserName;
@@ -86,6 +87,8 @@ public class RESTTestBase extends ISIntegrationTest {
 
     protected String basePath = StringUtils.EMPTY;
 
+    private OpenApiValidationFilter validationFilter;
+    private EncoderConfig encoderconfig = new EncoderConfig();
     private SwaggerRequestResponseValidator swaggerRequestResponseValidator;
     protected SwaggerValidationFilter validationFilter;
     EncoderConfig encoderconfig = new EncoderConfig();
@@ -106,8 +109,11 @@ public class RESTTestBase extends ISIntegrationTest {
         this.swaggerDefinition = swaggerDefinition;
         RestAssured.baseURI = backendURL.replace(SERVICES, "");
         String swagger = replaceInSwaggerDefinition(swaggerDefinition, basePathInSwagger, basePath);
-        swaggerRequestResponseValidator = SwaggerRequestResponseValidator.createFor(swagger).build();
-        validationFilter = new SwaggerValidationFilter(swaggerRequestResponseValidator);
+        OpenApiInteractionValidator openAPIValidator = OpenApiInteractionValidator
+                .createForInlineApiSpecification(swagger)
+                .withLevelResolver(LevelResolverFactory.withAdditionalPropertiesIgnored())
+                .build();
+        validationFilter = new OpenApiValidationFilter(openAPIValidator);
         remoteUSMServiceClient = new RemoteUserStoreManagerServiceClient(backendURL, sessionCookie);
     }
 
@@ -437,6 +443,31 @@ public class RESTTestBase extends ISIntegrationTest {
                         .appendDefaultContentCharsetToContentTypeIfUndefined(false)))
                 .contentType(contentType)
                 .header(HttpHeaders.ACCEPT, contentType)
+                .body(body)
+                .log().ifValidationFails()
+                .filter(validationFilter)
+                .log().ifValidationFails()
+                .when()
+                .log().ifValidationFails()
+                .patch(endpointURI);
+
+    }
+
+    /**
+     * Invoke given endpointUri for  PATCH request with given body, headers and Basic authentication, authentication
+     * credential being the authenticatingUserName and authenticatingCredential.
+     *
+     * @param endpointURI endpoint to be invoked
+     * @param body payload
+     * @return reponse
+     */
+    protected Response getResponseOfPatch(String endpointURI, String body) {
+
+        return given().auth().preemptive().basic(authenticatingUserName, authenticatingCredential)
+                .config(RestAssured.config().encoderConfig(encoderconfig
+                        .appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+                .contentType(ContentType.JSON)
+                .header(HttpHeaders.ACCEPT, ContentType.JSON)
                 .body(body)
                 .log().ifValidationFails()
                 .filter(validationFilter)

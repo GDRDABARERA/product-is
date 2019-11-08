@@ -48,14 +48,14 @@ public class UserMeApprovalTest extends UserApprovalTestBase {
     private static final String ME_APPROVAL_TASKS_FILTER_ENDPOINT_URI = "/me/approval-tasks?status=%s";
     private static final String ME_APPROVAL_TASK_ENDPOINT_URI = ME_APPROVAL_TASKS_ENDPOINT_URI + "/%s";
     private static final String ME_APPROVAL_TASK_STATE_ENDPOINT_URI = ME_APPROVAL_TASKS_ENDPOINT_URI + "/%s/state";
-    public static final String TEST_WORKFLOW_ADD_USER_FOR_REST_TASK = addUserWorkflowName + "Task";
-    public static final String JSON_PATH_MATCHING_REST_API_TEST_APPROVAL_TASK = "findAll{ it.presentationName == '"
+    private static final String TEST_WORKFLOW_ADD_USER_FOR_REST_TASK = addUserWorkflowName + "Task";
+    private static final String JSON_PATH_MATCHING_REST_API_TEST_APPROVAL_TASK = "findAll{ it.presentationName == '"
             + TEST_WORKFLOW_ADD_USER_FOR_REST_TASK + "' }";
 
     private static String swaggerDefinition;
-    String taskIdToApprove;
-    String taskIdToDeny;
-    String taskIdToKeep;
+    private String taskIdToApprove;
+    private String taskIdToDeny;
+    private String taskIdToKeep;
 
     static {
         try {
@@ -71,6 +71,7 @@ public class UserMeApprovalTest extends UserApprovalTestBase {
 
         super(userMode);
         setUpWorkFlowAssociation();
+        waitForWorkflowToDeploy();
     }
 
     @DataProvider(name = "restAPIUserConfigProvider")
@@ -115,12 +116,8 @@ public class UserMeApprovalTest extends UserApprovalTestBase {
     @Test(dependsOnMethods = {"testListTasksWhenEmpty"})
     public void testListTasksWhenAvailable() throws Exception {
 
-        Thread.sleep(5000);// wait till workflow is deployed
         addAssociationForMatch();
-
         for (int i = 1; i <= 3; i++) {
-            Thread.sleep(5000);// wait till workflow is applied
-            log.info("Waiting 5 seconds till the workflow is applied for association, iteration " + i + " of 3");
             int numOfTasks = getResponseOfGet(ME_APPROVAL_TASKS_ENDPOINT_URI)
                     .then()
                     .extract()
@@ -129,6 +126,10 @@ public class UserMeApprovalTest extends UserApprovalTestBase {
             if (numOfTasks == 3) {
                 break;
             }
+
+            // Wait till workflow is applied.
+            log.info("Waiting 5 seconds till the workflow is applied for association, iteration " + i + " of 3");
+            Thread.sleep(5000);
         }
 
         getResponseOfGet(ME_APPROVAL_TASKS_ENDPOINT_URI)
@@ -270,14 +271,14 @@ public class UserMeApprovalTest extends UserApprovalTestBase {
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .log().ifValidationFails()
-                .body("approvalStatus", is(APPROVAL_STATE.APPROVE.name()));
+                .body("approvalStatus", is(APPROVAL_STATE.APPROVED.name()));
 
         response = getResponseOfGet(String.format(ME_APPROVAL_TASK_ENDPOINT_URI, taskIdToDeny));
         response.then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .log().ifValidationFails()
-                .body("approvalStatus", is(APPROVAL_STATE.REJECT.name()));
+                .body("approvalStatus", is(APPROVAL_STATE.REJECTED.name()));
     }
 
     @Test(dependsOnMethods = {"testDenyTask"})

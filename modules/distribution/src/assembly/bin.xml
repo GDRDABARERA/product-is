@@ -650,7 +650,7 @@
             <fileMode>644</fileMode>
         </fileSet>
 
-        <!-- copy api.war-->
+        <!-- copy exploded *.war-->
         <fileSet>
             <directory>
                 ../p2-profile-gen/target/wso2carbon-core-${carbon.kernel.version}/repository/deployment/server/webapps
@@ -658,12 +658,14 @@
             <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps</outputDirectory>
             <includes>
                 <include>api/</include>
+                <include>authenticationendpoint/</include>
+                <include>accountrecoveryendpoint/</include>
             </includes>
         </fileSet>
 
         <!-- Copying the in-place update tools-->
         <fileSet>
-            <directory>updates/in-place/</directory>
+            <directory>target/update/</directory>
             <outputDirectory>wso2is-${pom.version}/bin</outputDirectory>
             <fileMode>744</fileMode>
         </fileSet>

@@ -13,9 +13,13 @@
 
   "authentication.consent.data_source": "jdbc/WSO2IdentityDB",
 
-  "claim_management.hide_menu_items": [
+  "server.hide_menu_items": [
     "claim_mgt_menu",
     "identity_mgt_emailtemplate_menu",
-    "identity_security_questions_menu"
-  ]
+    "identity_security_questions_menu",
+    "metrics_menu"
+  ],
+  "http_access_log.pattern": "%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %T",
+
+  "log_correlation.header_config": "{'activityid':'Correlation-ID'}"
 }
